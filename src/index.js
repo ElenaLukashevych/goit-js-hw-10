@@ -8,6 +8,9 @@ import debounce from 'lodash.debounce';
 import countries from './templates/countries.hbs'
 // import oneСountry from './templates/oneСountry.hbs'
 
+import { country } from './templates/country';
+
+
 const DEBOUNCE_DELAY = 300;
 const refs = getRefs();
 
@@ -35,7 +38,6 @@ function handlerInputValue(data) {
 
      refs.countryList.innerHTML = '';
     refs.countryInfo.innerHTML = '';
-    const language = Object.values(data[0].languages).join(', ');
     
     if (data.length <= 10 && data.length > 1) {
 
@@ -43,16 +45,10 @@ function handlerInputValue(data) {
 
     } else if (data.length === 1) {
 
-     const markup = `<img src="${data[0].flags.svg}" alt="" width="180">
-        <h2>${data[0].name.official}</h2>
-        <p><span>Capital:</span> ${data[0].capital}</p>
-                <p><span>Population:</span> ${data[0].population}</p>
-       <p><span>Languages:</span> ${ language }</p>`;
-     
-        refs.countryInfo.insertAdjacentHTML('beforeend', markup);
-        
 
     //  refs.countryInfo.insertAdjacentHTML('beforeend', oneСountry(data));
+        
+                  refs.countryInfo.insertAdjacentHTML('beforeend', country(data));
 
      
     } else 
@@ -60,6 +56,9 @@ function handlerInputValue(data) {
         notification()
     
 };
+
+
+
 
 
 function onFatchError() {
